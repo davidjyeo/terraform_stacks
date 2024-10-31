@@ -1,6 +1,10 @@
 component "rg" {
   source = "./resourcegroup"
 
+  inputs = {
+    location = var.location
+  }
+
   providers = {
     azurerm = provider.azurerm.this
   }
