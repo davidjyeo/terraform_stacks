@@ -15,9 +15,9 @@ required_providers {
     source  = "azure/modtm"
     version = "~>0.3"
   }
-  azapi = {
-    source = "azure/azapi"
-  }
+  # azapi = {
+  #   source = "azure/azapi"
+  # }
 }
 
 provider "azurerm" "this" {
