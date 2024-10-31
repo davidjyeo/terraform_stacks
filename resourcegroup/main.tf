@@ -1,5 +1,3 @@
-data "azapi_client_config" "current" {}
-
 resource "azurerm_resource_group" "rg" {
   name     = "rg-tfc-stack"
   location = var.location

@@ -37,3 +37,5 @@ provider "tls" "this" {}
 provider "random" "this" {}
 provider "modtm" "this" {}
 provider "azapi" "this" {}
+
+# data "azapi_client_config" "current" {}
