@@ -15,6 +15,9 @@ required_providers {
     source  = "azure/modtm"
     version = "~>0.3"
   }
+  azapi = {
+    source = "azure/azapi"
+  }
 }
 
 provider "azurerm" "this" {
@@ -27,6 +30,10 @@ provider "azurerm" "this" {
     subscription_id = var.subscription_id
     tenant_id       = var.tenant_id
   }
+}
+
+provider "azapi" {
+  default_location = "uksouth"
 }
 
 provider "tls" "this" {}
