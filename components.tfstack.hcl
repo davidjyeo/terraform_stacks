@@ -1,5 +1,9 @@
 component "rg" {
   source = "./resourcegroup"
+
+  providers = {
+    azurerm = provider.azurerm.this
+  }
 }
 
 # component "network" {
