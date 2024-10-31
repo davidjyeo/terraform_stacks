@@ -1,14 +1,14 @@
-# component "rg" {
-#   source = "./resourcegroup"
+component "rg" {
+  source = "./resourcegroup"
 
-#   inputs = {
-#     location = var.location
-#   }
+  inputs = {
+    location = var.location
+  }
 
-#   providers = {
-#     azurerm = provider.azurerm.this
-#   }
-# }
+  providers = {
+    azurerm = provider.azurerm.this
+  }
+}
 
 component "network" {
   source = "./network"
@@ -25,7 +25,6 @@ component "network" {
   providers = {
     azurerm = provider.azurerm.this
   }
-
 }
 
 # component "vm" {
