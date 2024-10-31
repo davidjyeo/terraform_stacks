@@ -10,9 +10,8 @@ resource "azurerm_resource_group" "main" {
 }
 
 module "testvm" {
-  source  = "Azure/avm-res-compute-virtualmachine/azurerm"
-  version = "0.16.0"
-
+  source                             = "Azure/avm-res-compute-virtualmachine/azurerm"
+  version                            = "0.16.0"
   admin_username                     = "azureuser"
   disable_password_authentication    = false
   enable_telemetry                   = true
@@ -24,7 +23,6 @@ module "testvm" {
   os_type                            = "Linux"
   sku_size                           = var.vm_sku_size
   zone                               = var.vm_zone
-
 
   network_interfaces = {
     network_interface_1 = {

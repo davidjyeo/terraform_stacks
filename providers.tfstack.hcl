@@ -1,8 +1,7 @@
 required_providers {
   azurerm = {
     source  = "hashicorp/azurerm"
-    version = "4.0.0"
-    # version = "~>3.0"
+    version = "~>3.0"
   }
   tls = {
     source  = "hashicorp/tls"
@@ -30,4 +29,6 @@ provider "azurerm" "this" {
   }
 }
 
+provider "tls" "this" {}
 provider "random" "this" {}
+provider "modtm" "this" {}
