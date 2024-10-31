@@ -7,6 +7,7 @@ component "rg" {
 
   providers = {
     azurerm = provider.azurerm.this
+    azapi   = provider.azapi.this
   }
 }
 
