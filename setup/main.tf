@@ -1,36 +1,69 @@
-# Create randmo integer for OIDC name
-resource "random_integer" "oidc" {
-  min = 10000
-  max = 99999
+# data about the current subscription
+data "azurerm_subscription" "current" {}
+
+data "azurerm_management_group" "root_mgmt_group" {
+  name = "88ef261e-b19b-4d71-9afd-cdac31a6dcda"
 }
 
-# Create Service Principals
-data "azuread_client_config" "current" {}
-
-locals {
-  az_name = "stacks${random_integer.oidc.result}"
+# create an app registration
+resource "azuread_application" "tfc_stacks" {
+  display_name = "hcp-terraform-azure"
 }
 
-module "tfc_oidc" {
-  source            = "ned1313/tfc_oidc/azuread"
-  version           = "0.2.0"
-  identity_name     = local.az_name
-  organization_name = var.organization_name
-  stacks            = var.stacks
+# create a service principal for the app
+resource "azuread_service_principal" "tfc_stacks" {
+  client_id = azuread_application.tfc_stacks.client_id
 }
 
-# Grant contributor role in current Azure subscription
-provider "azurerm" {
-  features {}
-  subscription_id = var.azure_subscription_id
-}
-
-data "azurerm_subscription" "main" {
-  subscription_id = var.azure_subscription_id
-}
-
-resource "azurerm_role_assignment" "oidc" {
-  scope                = data.azurerm_subscription.main.id
+# assign the contributor role for the service principal
+resource "azurerm_role_assignment" "contributor" {
+  scope                = data.azurerm_management_group.root_mgmt_group.id
+  principal_id         = azuread_service_principal.tfc_stacks.object_id
   role_definition_name = "Contributor"
-  principal_id         = module.tfc_oidc.service_principal.object_id
+}
+
+# create federated identity credentials for **plan** operations
+# for each deployment name
+resource "azuread_application_federated_identity_credential" "plan" {
+  for_each       = toset(var.deployment_names)
+  application_id = azuread_application.tfc_stacks.id
+  display_name   = "stack-deployment-${each.value}-plan"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://app.terraform.io"
+  description    = "Plan operation for deployment '${each.value}'"
+  subject = join(":", [
+    "organization",
+    var.organization_name,
+    "project",
+    var.project_name,
+    "stack",
+    var.stack_name,
+    "deployment",
+    each.value,
+    "operation",
+    "plan"
+  ])
+}
+
+# create federated identity credentials for **apply** operations
+# for each deployment name
+resource "azuread_application_federated_identity_credential" "apply" {
+  for_each       = toset(var.deployment_names)
+  application_id = azuread_application.tfc_stacks.id
+  display_name   = "stack-deployment-${each.value}-apply"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://app.terraform.io"
+  description    = "Apply operation for deployment '${each.value}'"
+  subject = join(":", [
+    "organization",
+    var.organization_name,
+    "project",
+    var.project_name,
+    "stack",
+    var.stack_name,
+    "deployment",
+    each.value,
+    "operation",
+    "apply"
+  ])
 }

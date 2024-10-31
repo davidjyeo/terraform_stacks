@@ -1,20 +1,19 @@
-# The GitHub repo where we'll be creating secrets
+variable "deployment_names" {
+  type        = list(string)
+  description = "List of Terraform stack deployment names"
+}
+
 variable "organization_name" {
-  description = "The name of the organization in HCP Terraform"
   type        = string
+  description = "HCP Terraform organization name"
 }
 
-variable "stacks" {
-  description = "The workspaces to create a federated identity for."
-  type = list(object({
-    stack_name      = string
-    deployment_name = string
-    project_name    = string
-    operations      = list(string)
-  }))
+variable "project_name" {
+  type        = string
+  description = "HCP Terraform project name"
 }
 
-variable "azure_subscription_id" {
-  description = "The Azure subscription ID to grant Contributor role on."
+variable "stack_name" {
   type        = string
+  description = "Terraform stack name"
 }

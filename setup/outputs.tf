@@ -1,11 +1,7 @@
-output "client_id" {
-  value = module.tfc_oidc.azuread_application.client_id
-}
-
-output "subscription_id" {
-  value = var.azure_subscription_id
-}
-
-output "tenant_id" {
-  value = data.azuread_client_config.current.tenant_id
+output "configuration" {
+  value = {
+    client_id       = azuread_service_principal.tfc_stacks.client_id
+    tenant_id       = data.azurerm_subscription.current.tenant_id
+    subscription_id = data.azurerm_subscription.current.subscription_id
+  }
 }
