@@ -15,6 +15,9 @@ required_providers {
     source  = "azure/modtm"
     version = "~>0.3"
   }
+  azapi = {
+    source = "azure/azapi"
+  }
 }
 
 provider "azurerm" "this" {
@@ -32,3 +35,4 @@ provider "azurerm" "this" {
 provider "tls" "this" {}
 provider "random" "this" {}
 provider "modtm" "this" {}
+provider "azapi" "this" {}
