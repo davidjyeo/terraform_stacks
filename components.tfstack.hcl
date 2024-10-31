@@ -1,15 +1,15 @@
-# component "rg" {
-#   source = "./resourcegroup"
+component "rg" {
+  source = "./resourcegroup"
 
-#   inputs = {
-#     location = var.location
-#   }
+  inputs = {
+    location = var.location
+  }
 
-#   providers = {
-#     azurerm = provider.azurerm.this
-#     azapi   = provider.azapi.this
-#   }
-# }
+  providers = {
+    azurerm = provider.azurerm.this
+    azapi   = provider.azapi.this
+  }
+}
 
 component "network" {
   source = "./network"
