@@ -1,3 +1,38 @@
+### tfc ###
+
+resource "tfe_organization" "org" {
+  name  = "stacks"
+  email = "user@domain.local"
+}
+
+resource "tfe_project" "project" {
+  organization = tfe_organization.org.name
+  name         = "tfc_stacks"
+}
+
+# resource "tfe_oauth_client" "test" {
+#   organization     = "my-example-org"
+#   api_url          = "https://api.github.com"
+#   http_url         = "https://github.com"
+#   oauth_token      = var.github_token
+#   service_provider = "github"
+# }
+
+
+# resource "tfe_stack" "test-stack" {
+#   name        = "my-stack"
+#   description = "A Terraform Stack using two components with two environments"
+#   project_id  = tfe_project.project.id
+
+#   # vcs_repo {
+#   #   branch         = "main"
+#   #   identifier     = "my-github-org/stack-repo"
+#   #   oauth_token_id = tfe_oauth_client.test.oauth_token_id
+#   # }
+# }
+
+### azure ###
+
 # data about the current subscription
 data "azurerm_subscription" "current" {}
 
