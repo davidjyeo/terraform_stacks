@@ -17,7 +17,7 @@ required_providers {
   }
   azapi = {
     source  = "azure/azapi"
-    version = "~>0.2" #version = "2.0.1"
+    version = "~>2.0" #version = "2.0.1"
   }
 }
 
