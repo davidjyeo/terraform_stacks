@@ -25,6 +25,9 @@ component "network" {
 
   providers = {
     azurerm = provider.azurerm.this
+    modtm   = provider.modtm.this
+    azapi   = provider.azapi.this
+    random  = provider.random.this
   }
 }
 
