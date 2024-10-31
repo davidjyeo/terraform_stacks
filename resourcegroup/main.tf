@@ -1,6 +1,7 @@
 resource "azurerm_resource_group" "rg" {
   name     = "rg-tfc-stack"
-  location = "UK South"
+  location = var.location
+
 }
 
 # resource "azapi_resource" "rg" {
