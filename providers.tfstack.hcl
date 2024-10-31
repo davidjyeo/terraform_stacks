@@ -32,9 +32,9 @@ provider "azurerm" "this" {
   }
 }
 
-provider "azapi" {
-  default_location = "uksouth"
-}
+# provider "azapi" {
+#   default_location = "uksouth"
+# }
 
 provider "tls" "this" {}
 provider "random" "this" {}
